@@ -209,14 +209,15 @@ public class Library {
 	 */
 	public boolean checkin(String holder) {
 		// FILL IN -- do not return false unless appropriate
+		boolean result = false;
 		for (LibraryBook currentBook : library) {
 			boolean holderMatch = currentBook.getHolder()==holder ;
 			boolean hasDueDate = currentBook.getDueDate()!=null;
 			if (holderMatch && hasDueDate) {
 				currentBook.checkIn();
-				return true;
+				result = true;
 			}	
 		}
-		return false;
+		return result;
 	}
 }
