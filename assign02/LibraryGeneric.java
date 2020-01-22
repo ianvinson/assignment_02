@@ -113,8 +113,11 @@ public class LibraryGeneric<Type> {
 	 * 
 	 * @param isbn - ISBN of the book to be looked up
 	 */
-	public String lookup(long isbn) {
-		// FILL IN -- do not return null unless appropriate
+	public Type lookup(long isbn) {
+	    for (LibraryBookGeneric currentBook : library) {
+            if (currentBook.getIsbn() == isbn)
+                return (Type) currentBook.getHolder();
+        }
 		return null;
 	}
 
@@ -125,12 +128,13 @@ public class LibraryGeneric<Type> {
 	 * 
 	 * @param holder - holder whose checked out books are returned
 	 */
-	public ArrayList<LibraryBookGeneric<Type>> lookup(Type holder) {
+	public ArrayList<LibraryBookGeneric<Type>> lookup(Object holder) {
 		// FILL IN -- do not return null
 		ArrayList<LibraryBookGeneric<Type>> checkedOut = new ArrayList<LibraryBookGeneric<Type>>();
 		for (LibraryBookGeneric currentBook : library) {
-			if (currentBook.getHolder() != holder)
-				checkedOut.add(currentBook);
+			if (currentBook.compareHolder(holder)) {
+			    checkedOut.add(currentBook);
+			}	
 		}
 		return checkedOut;
 	}

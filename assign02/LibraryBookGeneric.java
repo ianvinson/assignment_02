@@ -49,6 +49,15 @@ public class LibraryBookGeneric<Type> extends Book {
 		dueDate = new GregorianCalendar(year, month, day, 0, 0, 0);
     	this.holder = (Type) holder;
 	}
+	
+	public boolean compareHolder(Object h) {
+	    if (this.holder == null)
+	        return false;
+	    if (h.getClass() == this.holder.getClass()) {
+	        return true;
+	    }
+	    return false;
+	}
 
 
 	

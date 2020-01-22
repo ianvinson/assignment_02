@@ -75,7 +75,7 @@ public class LibraryTester {
 		
 		assertNotNull(booksCheckedOut);
 		assertEquals(1, booksCheckedOut.size());
-		assertEquals(new Book(9780330351690L, "Jon Krakauer", "Into the Wild"), booksCheckedOut.get(0));
+		assertEquals(new LibraryBook(9780330351690L, "Jon Krakauer", "Into the Wild"), booksCheckedOut.get(0));
 		assertEquals("Jane Doe", booksCheckedOut.get(0).getHolder());
 	}
 
@@ -93,17 +93,5 @@ public class LibraryTester {
 	@Test
 	public void testSmallLibraryCheckinHolder() {
 		assertFalse(smallLib.checkin("Jane Doe"));
-	}
-	
-	@Test
-	public void testSmallLibraryLookupAnCheckedOutISBN() {
-		smallLib.checkout(9780330351690L, "Jane Doe", 1, 1, 2008);
-		assertEquals("Jane Doe",smallLib.lookup(9780330351690L));
-	}
-	
-	@Test
-	public void testMediumLibraryLookupISBN() {
-		assertNull(mediumLib.lookup(9781843190349L));
-		
 	}
 }
