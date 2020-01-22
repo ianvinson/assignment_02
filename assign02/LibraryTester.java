@@ -105,6 +105,18 @@ public class LibraryTester {
 	@Test
 	public void testMediumLibraryLookupISBN() {
 		assertNull(mediumLib.lookup(9781843190349L));
+		mediumLib.checkout(9781843190349L, "Jane Doe", 1, 1, 2008);
+		assertEquals("Jane Doe",mediumLib.lookup(9781843190349L));
+	}
+	
+	@Test
+	public void testMediumLibiaryLookupHolder() {
+		mediumLib.checkout(9781843190349L, "Jane Doe", 1, 1, 2008);
+		ArrayList<LibraryBook> booksCheckedOut = mediumLib.lookup("Jane Doe");
 		
+		assertNotNull(booksCheckedOut);
+		assertEquals(1, booksCheckedOut.size());
+		assertEquals(new Book(9781843190349L, "Esme Ellis", "Pathway Into Sunrise"), booksCheckedOut.get(0));
+		assertEquals("Jane Doe", booksCheckedOut.get(0).getHolder());
 	}
 }
