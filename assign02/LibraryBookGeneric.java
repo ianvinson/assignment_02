@@ -50,14 +50,22 @@ public class LibraryBookGeneric<Type> extends Book {
     	this.holder = (Type) holder;
 	}
 	
+	public boolean isCheckedOut() {
+        if (holder==null && dueDate==null)
+            return false;
+        return true;
+    }
+	
 	public boolean compareHolder(Object h) {
 	    if ((this.holder == null)||(h == null))
 	        return false;
-	    if (h.getClass() == this.holder.getClass()) {
-	        return true;
-	    }
-	    return false;
+	    if (h.getClass() != this.holder.getClass()) 
+	        return false;
+	    if (h != this.holder)
+	        return false;
+	    return true;
 	}
+
 
 	
 	
