@@ -59,7 +59,6 @@ public class LibraryBookGeneric<Type> extends Book {
 	    return false;
 	}
 
-
 	
 	
 	
