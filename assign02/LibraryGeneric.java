@@ -12,15 +12,15 @@ import java.util.Scanner;
  * @author Erin Parker and Ian Vinson
  * @version January 16, 2020
  */
-public class LibraryGeneric {
+public class LibraryGeneric<Type> {
 
-	private ArrayList<LibraryBook> library;
+	private ArrayList<LibraryBookGeneric<Type>> library;
 
 	/**
 	 * Creates an empty library.
 	 */
 	public LibraryGeneric() {
-		library = new ArrayList<LibraryBook>();
+		library = new ArrayList<LibraryBookGeneric<Type>>();
 	}
 
 	/**
@@ -32,7 +32,7 @@ public class LibraryGeneric {
 	 * @param title - title of the book to be added
 	 */
 	public void add(long isbn, String author, String title) {
-		library.add(new LibraryBook(isbn, author, title));
+		library.add(new LibraryBookGeneric(isbn, author, title));
 	}
 
 	/**
@@ -41,7 +41,7 @@ public class LibraryGeneric {
 	 * 
 	 * @param list - list of library books to be added
 	 */
-	public void addAll(ArrayList<LibraryBook> list) {
+	public void addAll(ArrayList<LibraryBookGeneric<Type>> list) {
 		library.addAll(list);
 	}
 
@@ -56,7 +56,7 @@ public class LibraryGeneric {
 	 * @param filename
 	 */
 	public void addAll(String filename) {
-		ArrayList<LibraryBook> toBeAdded = new ArrayList<LibraryBook>();
+		ArrayList<LibraryBookGeneric<Type>> toBeAdded = new ArrayList<LibraryBookGeneric<Type>>();
 
 		try {
 			Scanner fileIn = new Scanner(new File(filename));
@@ -86,7 +86,7 @@ public class LibraryGeneric {
 				}
 				String title = lineIn.next();
 
-				toBeAdded.add(new LibraryBook(isbn, author, title));
+				toBeAdded.add(new LibraryBookGeneric(isbn, author, title));
 
 				lineNum++;
 				lineIn.close();
@@ -125,10 +125,10 @@ public class LibraryGeneric {
 	 * 
 	 * @param holder - holder whose checked out books are returned
 	 */
-	public ArrayList<LibraryBook> lookup(String holder) {
+	public ArrayList<LibraryBookGeneric<Type>> lookup(Type holder) {
 		// FILL IN -- do not return null
-		ArrayList<LibraryBook> checkedOut = new ArrayList<LibraryBook>();
-		for (LibraryBook currentBook : library) {
+		ArrayList<LibraryBookGeneric<Type>> checkedOut = new ArrayList<LibraryBookGeneric<Type>>();
+		for (LibraryBookGeneric currentBook : library) {
 			if (currentBook.getHolder() != holder)
 				checkedOut.add(currentBook);
 		}
@@ -152,9 +152,9 @@ public class LibraryGeneric {
 	 * @param year - year of the new due date of the library book
 	 * 
 	 */
-	public boolean checkout(long isbn, String holder, int month, int day, int year) {
+	public boolean checkout(long isbn, Type holder, int month, int day, int year) {
 		// FILL IN -- do not return false unless appropriate
-		for (LibraryBook currentBook : library) {
+		for (LibraryBookGeneric currentBook : library) {
 			boolean isbnMatch = currentBook.getIsbn()==isbn;
 			boolean nullHolder = currentBook.getHolder()==null;
 			boolean nullDueDate = currentBook.getDueDate()==null;
@@ -179,7 +179,7 @@ public class LibraryGeneric {
 	 */
 	public boolean checkin(long isbn) {
 		// FILL IN -- do not return false unless appropriate
-		for (LibraryBook currentBook : library) {
+		for (LibraryBookGeneric currentBook : library) {
 			boolean isbnMatch = currentBook.getIsbn()==isbn;
 			boolean hasHolder = currentBook.getHolder()!=null;
 			boolean hasDueDate = currentBook.getDueDate()!=null;
@@ -201,9 +201,9 @@ public class LibraryGeneric {
 	 * 
 	 * @param holder - holder of the library books to be checked in
 	 */
-	public boolean checkin(String holder) {
+	public boolean checkin(Type holder) {
 		// FILL IN -- do not return false unless appropriate
-		for (LibraryBook currentBook : library) {
+		for (LibraryBookGeneric currentBook : library) {
 			boolean holderMatch = currentBook.getHolder()==holder ;
 			boolean hasDueDate = currentBook.getDueDate()!=null;
 			if (holderMatch && hasDueDate) {

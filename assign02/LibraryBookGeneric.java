@@ -2,9 +2,9 @@ package assign02;
 
 import java.util.GregorianCalendar;
 
-public class LibraryBookGeneric extends Book {
+public class LibraryBookGeneric<Type> extends Book {
 	
-	private String holder;
+	private Type holder;
 	
 	private GregorianCalendar dueDate;
 	
@@ -20,7 +20,7 @@ public class LibraryBookGeneric extends Book {
      * 
      * @return the holder
      */
-	public String getHolder() {
+	public Type getHolder() {
 		return holder;
 	}
 	
@@ -44,10 +44,10 @@ public class LibraryBookGeneric extends Book {
 	 * @param day - day of due date
 	 * @param year - year of due date
 	 */
-	public void checkOut(String holder, int month, int day, int year) {
+	public void checkOut(Object holder, int month, int day, int year) {
 		// TODO Auto-generated method stub
 		dueDate = new GregorianCalendar(year, month, day, 0, 0, 0);
-    	this.holder = holder;
+    	this.holder = (Type) holder;
 	}
 
 

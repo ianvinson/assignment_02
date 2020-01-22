@@ -9,7 +9,7 @@ import java.util.Scanner;
 /**
  * This class represents a library, which is a collection of library books.
  * 
- * @author Erin Parker and Ian Vinson
+ * @author Erin Parker and Ian Vinson and Shengke Xu
  * @version January 16, 2020
  */
 public class Library {
@@ -133,7 +133,9 @@ public class Library {
 		// FILL IN -- do not return null
 		ArrayList<LibraryBook> checkedOut = new ArrayList<LibraryBook>();
 		for (LibraryBook currentBook : library) {
-			if (currentBook.getHolder() != holder)
+		    boolean holderMatch = currentBook.getHolder() == holder;
+		    boolean isCheckedOut = currentBook.isCheckedOut();
+			if (holderMatch && isCheckedOut)
 				checkedOut.add(currentBook);
 		}
 		return checkedOut;

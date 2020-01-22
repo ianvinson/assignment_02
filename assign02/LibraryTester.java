@@ -15,7 +15,7 @@ import java.util.ArrayList;
 /**
  * This class contains tests for Library.
  * 
- * @author Erin Parker and ??
+ * @author Erin Parker and Ian Vinson and Shengke Xu
  * @version January 16, 2020
  */
 public class LibraryTester {

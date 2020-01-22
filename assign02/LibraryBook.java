@@ -49,6 +49,12 @@ public class LibraryBook extends Book {
 		dueDate = new GregorianCalendar(year, month, day, 0, 0, 0);
     	this.holder = holder;
 	}
+	
+	public boolean isCheckedOut() {
+	    if (holder==null && dueDate==null)
+	        return false;
+	    return true;
+	}
 
 
 	
