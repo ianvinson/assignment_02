@@ -63,9 +63,14 @@ public class Book {
 	 * @return true if other object is a Book type and is equal to this book, false otherwise
 	 */
 	public boolean equals(Object other) {
-		// FILL IN -- do not return false unless appropriate
+		if (!(other instanceof Book))
+			return false;
 
-		return false;
+		Book otherBook = (Book) other;
+		if ((this.isbn != otherBook.isbn)||!(this.author.equals(otherBook.author))||!(this.title.equals(otherBook.title)))
+			return false;
+		
+		return true;
 	}
 
 	/**
