@@ -94,4 +94,16 @@ public class LibraryTester {
 	public void testSmallLibraryCheckinHolder() {
 		assertFalse(smallLib.checkin("Jane Doe"));
 	}
+	
+	@Test
+	public void testSmallLibraryLookupAnCheckedOutISBN() {
+		smallLib.checkout(9780330351690L, "Jane Doe", 1, 1, 2008);
+		assertEquals("Jane Doe",smallLib.lookup(9780330351690L));
+	}
+	
+	@Test
+	public void testMediumLibraryLookupISBN() {
+		assertNull(mediumLib.lookup(9781843190349L));
+		
+	}
 }
