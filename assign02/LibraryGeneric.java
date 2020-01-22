@@ -33,7 +33,7 @@ public class LibraryGeneric<Type> {
 	 * @param title - title of the book to be added
 	 */
 	public void add(long isbn, String author, String title) {
-		library.add(new LibraryBookGeneric(isbn, author, title));
+		library.add(new LibraryBookGeneric<Type>(isbn, author, title));
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class LibraryGeneric<Type> {
 				}
 				String title = lineIn.next();
 
-				toBeAdded.add(new LibraryBookGeneric(isbn, author, title));
+				toBeAdded.add(new LibraryBookGeneric<Type>(isbn, author, title));
 
 				lineNum++;
 				lineIn.close();
@@ -115,7 +115,7 @@ public class LibraryGeneric<Type> {
 	 * @param isbn - ISBN of the book to be looked up
 	 */
 	public Type lookup(long isbn) {
-	    for (LibraryBookGeneric currentBook : library) {
+	    for (LibraryBookGeneric<Type> currentBook : library) {
             if (currentBook.getIsbn() == isbn)
                 return (Type) currentBook.getHolder();
         }
@@ -132,7 +132,7 @@ public class LibraryGeneric<Type> {
 	public ArrayList<LibraryBookGeneric<Type>> lookup(Object holder) {
 		// FILL IN -- do not return null
 		ArrayList<LibraryBookGeneric<Type>> checkedOut = new ArrayList<LibraryBookGeneric<Type>>();
-		for (LibraryBookGeneric currentBook : library) {
+		for (LibraryBookGeneric<Type> currentBook : library) {
 			if (currentBook.compareHolder(holder)) {
 			    checkedOut.add(currentBook);
 			}	
@@ -159,7 +159,7 @@ public class LibraryGeneric<Type> {
 	 */
 	public boolean checkout(long isbn, Type holder, int month, int day, int year) {
 		// FILL IN -- do not return false unless appropriate
-		for (LibraryBookGeneric currentBook : library) {
+		for (LibraryBookGeneric<Type> currentBook : library) {
 			boolean isbnMatch = currentBook.getIsbn()==isbn;
 			boolean nullHolder = currentBook.getHolder()==null;
 			boolean nullDueDate = currentBook.getDueDate()==null;
@@ -184,7 +184,7 @@ public class LibraryGeneric<Type> {
 	 */
 	public boolean checkin(long isbn) {
 		// FILL IN -- do not return false unless appropriate
-		for (LibraryBookGeneric currentBook : library) {
+		for (LibraryBookGeneric<Type> currentBook : library) {
 			boolean isbnMatch = currentBook.getIsbn()==isbn;
 			boolean hasHolder = currentBook.getHolder()!=null;
 			boolean hasDueDate = currentBook.getDueDate()!=null;
@@ -208,7 +208,7 @@ public class LibraryGeneric<Type> {
 	 */
 	public boolean checkin(Type holder) {
 		// FILL IN -- do not return false unless appropriate
-		for (LibraryBookGeneric currentBook : library) {
+		for (LibraryBookGeneric<Type> currentBook : library) {
 			boolean holderMatch = currentBook.getHolder()==holder ;
 			boolean hasDueDate = currentBook.getDueDate()!=null;
 			if (holderMatch && hasDueDate) {
