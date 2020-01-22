@@ -44,14 +44,14 @@ public class LibraryBookGeneric<Type> extends Book {
 	 * @param day - day of due date
 	 * @param year - year of due date
 	 */
-	public void checkOut(Object holder, int month, int day, int year) {
+	public void checkOut(Type holder, int month, int day, int year) {
 		// TODO Auto-generated method stub
 		dueDate = new GregorianCalendar(year, month, day, 0, 0, 0);
     	this.holder = (Type) holder;
 	}
 	
 	public boolean compareHolder(Object h) {
-	    if (this.holder == null)
+	    if ((this.holder == null)||(h == null))
 	        return false;
 	    if (h.getClass() == this.holder.getClass()) {
 	        return true;
