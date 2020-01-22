@@ -110,13 +110,50 @@ public class LibraryTester {
 	}
 	
 	@Test
+	public void testMediumLibraryCheckout() {
+		assertTrue(mediumLib.checkout(9781843190677L, "Jane Doe", 1, 1, 2008));
+		assertFalse(mediumLib.checkout(9781983790677L, "Jane Doe", 1, 1, 2008));
+	}
+		
+	@Test
 	public void testMediumLibiaryLookupHolder() {
-		mediumLib.checkout(9781843190349L, "Jane Doe", 1, 1, 2008);
+		mediumLib.checkout(9781843190349L, "Jane Doe", 1, 1, 2008);// book 7
+		mediumLib.checkout(9781843190363L, "Jane Doe", 1, 1, 2008);// book 8
+		mediumLib.checkout(9781843190394L, "Bob Doe", 1, 1, 2008);// book 9
+		mediumLib.checkout(9781843190400L, "Bob Doe", 1, 1, 2008);// book 10
 		ArrayList<LibraryBook> booksCheckedOut = mediumLib.lookup("Jane Doe");
 		
 		assertNotNull(booksCheckedOut);
-		assertEquals(1, booksCheckedOut.size());
-		assertEquals(new Book(9781843190349L, "Esme Ellis", "Pathway Into Sunrise"), booksCheckedOut.get(0));
+		assertEquals(2, booksCheckedOut.size());
+		assertTrue(booksCheckedOut.contains(new Book(9781843190349L, "Esme Ellis", "Pathway Into Sunrise")));
+		assertTrue(booksCheckedOut.contains(new Book(9781843190363L, "Emma Lorant", "Cloner")));
 		assertEquals("Jane Doe", booksCheckedOut.get(0).getHolder());
+		assertEquals("Jane Doe", booksCheckedOut.get(1).getHolder());
+	}
+
+	@Test
+	public void testMediumLibraryCheckinHolder() {
+		mediumLib.checkout(9781843190349L, "Jane Doe", 1, 1, 2008);// book 7
+		mediumLib.checkout(9781843190363L, "Jane Doe", 1, 1, 2008);// book 8
+		mediumLib.checkout(9781843190394L, "Bob Doe", 1, 1, 2008);// book 9
+		
+		assertTrue(mediumLib.checkin("Jane Doe"));
+
+		assertNull(mediumLib.lookup(9781843190349L));
+		assertNull(mediumLib.lookup(9781843190363L));
+		assertEquals("Bob Doe",mediumLib.lookup(9781843190394L));
+	}
+	
+	@Test
+	public void testMediumLibraryCheckinISBN() {
+		mediumLib.checkout(9781843190349L, "Jane Doe", 1, 1, 2008);// book 7
+		mediumLib.checkout(9781843190363L, "Jane Doe", 1, 1, 2008);// book 8
+		mediumLib.checkout(9781843190394L, "Bob Doe", 1, 1, 2008);// book 9
+
+		assertTrue(mediumLib.checkin(9781843190349L));
+		
+		assertNull(mediumLib.lookup(9781843190349L));
+		assertEquals("Jane Doe",mediumLib.lookup(9781843190363L));
+		assertEquals("Bob Doe",mediumLib.lookup(9781843190394L));
 	}
 }
