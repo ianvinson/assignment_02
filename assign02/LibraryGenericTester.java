@@ -104,7 +104,7 @@ public class LibraryGenericTester {
 		expectedInventoryList.add(book1);
 		expectedInventoryList.add(book3);
 
-		ArrayList<LibraryBookGeneric<String>> books = nameLib.getOrderedByTitle();
+		ArrayList<LibraryBookGeneric<String>> books = nameLib.getInventoryList();
 		assertEquals(expectedInventoryList, books);
 	}
 
