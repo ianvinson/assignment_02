@@ -4,8 +4,8 @@ package assign02;
  * This class represents a book, in which the ISBN, author, and title cannot
  * change once the book is created.  Note that ISBNs are unique.
  * 
- * @author Erin Parker and Ian Vinson
- * @version January 16, 2020
+ * @author Erin Parker, Ian Vinson and Shengke Xu
+ * @version January 22, 2020
  */
 public class Book {
 
@@ -63,6 +63,9 @@ public class Book {
 	 * @return true if other object is a Book type and is equal to this book, false otherwise
 	 */
 	public boolean equals(Object other) {
+		if (other == null)
+			return false;
+		
 		if (!(other instanceof Book))
 			return false;
 		
