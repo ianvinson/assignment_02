@@ -107,13 +107,6 @@ public class LibraryGenericTester {
 		ArrayList<LibraryBookGeneric<String>> books = nameLib.getOrderedByTitle();
 		assertEquals(expectedInventoryList, books);
 	}
-	
-	@Test
-	public void testOrderByIsbn() {
-		assertEquals(1, nameLib.compairBooks(book1, book2));
-		assertEquals(-1, nameLib.compairBooks(book1, book3));
-		assertEquals(-1, nameLib.compairBooks(book2, book3));
-	}
 
 	@Test
 	public void testGetOverdueList() {

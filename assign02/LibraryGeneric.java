@@ -232,11 +232,6 @@ public class LibraryGeneric<Type> {
 
 		return libraryCopy;
 	}
-	
-	public int compairBooks(LibraryBookGeneric<Type> lhs, LibraryBookGeneric<Type> rhs) {
-		OrderByIsbn comparator = new OrderByIsbn();
-		return comparator.compare(lhs, rhs);
-	}
 
 	/**
 	 * Returns the list of library books whose due date is older than the input
