@@ -70,8 +70,7 @@ public class Book {
 			return false;
 
 		Book otherBook = (Book) other;
-		if ((this.isbn != otherBook.isbn) || !(this.author.equals(otherBook.author))
-				|| !(this.title.equals(otherBook.title)))
+		if ((this.isbn != otherBook.isbn) || !(this.author.equals(otherBook.author)) || !(this.title.equals(otherBook.title)))
 			return false;
 
 		return true;
