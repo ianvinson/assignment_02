@@ -10,7 +10,7 @@ import java.util.Scanner;
  * This class represents a library, which is a collection of library books.
  * 
  * @author Erin Parker and Ian Vinson and Shengke Xu
- * @version January 16, 2020
+ * @version January 22, 2020
  */
 public class Library {
 
@@ -24,20 +24,20 @@ public class Library {
 	}
 
 	/**
-	 * Adds to the library the book, specified by the given ISBN, author, and
-	 * title. Assumes there is no possibility of duplicate library books.
+	 * Adds to the library the book, specified by the given ISBN, author, and title.
+	 * Assumes there is no possibility of duplicate library books.
 	 * 
-	 * @param isbn - ISBN of the book to be added
+	 * @param isbn   - ISBN of the book to be added
 	 * @param author - author of the book to be added
-	 * @param title - title of the book to be added
+	 * @param title  - title of the book to be added
 	 */
 	public void add(long isbn, String author, String title) {
 		library.add(new LibraryBook(isbn, author, title));
 	}
 
 	/**
-	 * Add the list of library books to the library. Assumes there is no
-	 * possibility of duplicate library books.
+	 * Add the list of library books to the library. Assumes there is no possibility
+	 * of duplicate library books.
 	 * 
 	 * @param list - list of library books to be added
 	 */
@@ -46,9 +46,9 @@ public class Library {
 	}
 
 	/**
-	 * Adds the the library the books specified by the input file. Assumes the
-	 * input files specifies one book per line with ISBN, author, and title
-	 * separated by tabs.
+	 * Adds the the library the books specified by the input file. Assumes the input
+	 * files specifies one book per line with ISBN, author, and title separated by
+	 * tabs.
 	 * 
 	 * If file does not exist or format is violated, prints an error message and
 	 * does not change the library.
@@ -62,25 +62,25 @@ public class Library {
 			Scanner fileIn = new Scanner(new File(filename));
 			int lineNum = 1;
 
-			while(fileIn.hasNextLine()) {
+			while (fileIn.hasNextLine()) {
 				String line = fileIn.nextLine();
 
 				Scanner lineIn = new Scanner(line);
 				lineIn.useDelimiter("\\t");
 
-				if(!lineIn.hasNextLong()) {
+				if (!lineIn.hasNextLong()) {
 					lineIn.close();
 					throw new ParseException("ISBN", lineNum);
 				}
 				long isbn = lineIn.nextLong();
 
-				if(!lineIn.hasNext()) {
+				if (!lineIn.hasNext()) {
 					lineIn.close();
 					throw new ParseException("Author", lineNum);
 				}
 				String author = lineIn.next();
 
-				if(!lineIn.hasNext()) {
+				if (!lineIn.hasNext()) {
 					lineIn.close();
 					throw new ParseException("Title", lineNum);
 				}
@@ -92,14 +92,11 @@ public class Library {
 				lineIn.close();
 			}
 			fileIn.close();
-		}
-		catch(FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			System.err.println(e.getMessage() + " Nothing added to the library.");
 			return;
-		}
-		catch(ParseException e) {
-			System.err.println(e.getLocalizedMessage() + " formatted incorrectly at line " + e.getErrorOffset()
-					+ ". Nothing added to the library.");
+		} catch (ParseException e) {
+			System.err.println(e.getLocalizedMessage() + " formatted incorrectly at line " + e.getErrorOffset() + ". Nothing added to the library.");
 			return;
 		}
 
@@ -115,10 +112,10 @@ public class Library {
 	 */
 	public String lookup(long isbn) {
 		// FILL IN -- do not return null unless appropriate
-	    for (LibraryBook currentBook : library) {
-            if (currentBook.getIsbn() == isbn)
-                return currentBook.getHolder();
-	    }
+		for (LibraryBook currentBook : library) {
+			if (currentBook.getIsbn() == isbn)
+				return currentBook.getHolder();
+		}
 		return null;
 	}
 
@@ -133,8 +130,8 @@ public class Library {
 		// FILL IN -- do not return null
 		ArrayList<LibraryBook> checkedOut = new ArrayList<LibraryBook>();
 		for (LibraryBook currentBook : library) {
-		    boolean holderMatch = currentBook.getHolder() == holder;
-		    boolean isCheckedOut = currentBook.isCheckedOut();
+			boolean holderMatch = currentBook.getHolder() == holder;
+			boolean isCheckedOut = currentBook.isCheckedOut();
 			if (holderMatch && isCheckedOut)
 				checkedOut.add(currentBook);
 		}
@@ -146,28 +143,27 @@ public class Library {
 	 * 
 	 * If no book with the specified ISBN is in the library, returns false.
 	 * 
-	 * If the book with the specified ISBN is already checked out, returns
-	 * false.
+	 * If the book with the specified ISBN is already checked out, returns false.
 	 * 
 	 * Otherwise, returns true.
 	 * 
-	 * @param isbn - ISBN of the library book to be checked out
+	 * @param isbn   - ISBN of the library book to be checked out
 	 * @param holder - new holder of the library book
-	 * @param month - month of the new due date of the library book
-	 * @param day - day of the new due date of the library book
-	 * @param year - year of the new due date of the library book
+	 * @param month  - month of the new due date of the library book
+	 * @param day    - day of the new due date of the library book
+	 * @param year   - year of the new due date of the library book
 	 * 
 	 */
 	public boolean checkout(long isbn, String holder, int month, int day, int year) {
 		// FILL IN -- do not return false unless appropriate
 		for (LibraryBook currentBook : library) {
-			boolean isbnMatch = currentBook.getIsbn()==isbn;
-			boolean nullHolder = currentBook.getHolder()==null;
-			boolean nullDueDate = currentBook.getDueDate()==null;
+			boolean isbnMatch = currentBook.getIsbn() == isbn;
+			boolean nullHolder = currentBook.getHolder() == null;
+			boolean nullDueDate = currentBook.getDueDate() == null;
 			if (isbnMatch && nullHolder && nullDueDate) {
 				currentBook.checkOut(holder, month, day, year);
 				return true;
-			}	
+			}
 		}
 		return false;
 	}
@@ -186,13 +182,13 @@ public class Library {
 	public boolean checkin(long isbn) {
 		// FILL IN -- do not return false unless appropriate
 		for (LibraryBook currentBook : library) {
-			boolean isbnMatch = currentBook.getIsbn()==isbn;
-			boolean hasHolder = currentBook.getHolder()!=null;
-			boolean hasDueDate = currentBook.getDueDate()!=null;
+			boolean isbnMatch = currentBook.getIsbn() == isbn;
+			boolean hasHolder = currentBook.getHolder() != null;
+			boolean hasDueDate = currentBook.getDueDate() != null;
 			if (isbnMatch && hasHolder && hasDueDate) {
 				currentBook.checkIn();
 				return true;
-			}	
+			}
 		}
 		return false;
 	}
@@ -211,12 +207,12 @@ public class Library {
 		// FILL IN -- do not return false unless appropriate
 		boolean result = false;
 		for (LibraryBook currentBook : library) {
-			boolean holderMatch = currentBook.getHolder()==holder ;
-			boolean hasDueDate = currentBook.getDueDate()!=null;
+			boolean holderMatch = currentBook.getHolder() == holder;
+			boolean hasDueDate = currentBook.getDueDate() != null;
 			if (holderMatch && hasDueDate) {
 				currentBook.checkIn();
 				result = true;
-			}	
+			}
 		}
 		return result;
 	}
