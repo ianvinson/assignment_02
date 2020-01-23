@@ -17,10 +17,16 @@ public class LibraryGenericTester {
 	
 	private LibraryGeneric<String> nameLib;  // library that uses names to identify patrons (holders)
 	private LibraryGeneric<PhoneNumber> phoneLib;  // library that uses phone numbers to identify patrons
+	LibraryBookGeneric<String> book1, book2, book3;
 	
 	@BeforeEach
 	void setUp() throws Exception {
+		book1 = new LibraryBookGeneric<String>(9780374292799L, "Thomas L. Friedman", "The World is Flat");
+		book2 = new LibraryBookGeneric<String>(9780330351690L, "Jon Krakauer", "Into the Wild");
+		book3 = new LibraryBookGeneric<String>(9780446580342L, "David Baldacci", "Simple Genius");
+		
 		nameLib = new LibraryGeneric<String>();
+		
 		nameLib.add(9780374292799L, "Thomas L. Friedman", "The World is Flat");
 		nameLib.add(9780330351690L, "Jon Krakauer", "Into the Wild");
 		nameLib.add(9780446580342L, "David Baldacci", "Simple Genius");
@@ -91,4 +97,42 @@ public class LibraryGenericTester {
 		assertTrue(phoneLib.checkin(patron));
 	}
 	
+	@Test
+	public void testGetInventoryList() {
+		ArrayList<LibraryBookGeneric<String>> expectedInventoryList = new ArrayList<LibraryBookGeneric<String>>();
+		expectedInventoryList.add(book2);
+		expectedInventoryList.add(book1);
+		expectedInventoryList.add(book2);
+		
+		ArrayList<LibraryBookGeneric<String>> books = nameLib.getOrderedByTitle();
+		assertEquals(expectedInventoryList,books);
+	}
+	
+	@Test
+	public void testGetOverdueList() {
+		ArrayList<LibraryBookGeneric<String>> expectedOverDueList = new ArrayList<LibraryBookGeneric<String>>();
+		expectedOverDueList.add(book3);
+		expectedOverDueList.add(book1);
+		expectedOverDueList.add(book2);
+		
+		String patron = "Jane Doe";
+		nameLib.checkout(9780374292799L, patron, 1, 5, 2008);
+		nameLib.checkout(9780330351690L, patron, 2, 1, 2008);
+		nameLib.checkout(9780446580342L, patron, 12, 1, 2007);
+
+		ArrayList<LibraryBookGeneric<String>> overDueList = nameLib.getOverdueList(6, 1, 2008);
+		
+		assertEquals(expectedOverDueList,overDueList);
+	}
+	
+	@Test
+	public void testGetOrderedByTitle() {
+		ArrayList<LibraryBookGeneric<String>> expectedOrderedByTitleList = new ArrayList<LibraryBookGeneric<String>>();
+		expectedOrderedByTitleList.add(book2);
+		expectedOrderedByTitleList.add(book3);
+		expectedOrderedByTitleList.add(book1);
+		
+		ArrayList<LibraryBookGeneric<String>> books = nameLib.getOrderedByTitle();
+		assertEquals(expectedOrderedByTitleList,books);
+	}
 }
