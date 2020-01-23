@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 /**
@@ -239,17 +240,26 @@ public class LibraryGeneric<Type> {
 	 * If no library books are overdue, returns an empty list.
 	 */
 	public ArrayList<LibraryBookGeneric<Type>> getOverdueList(int month, int day, int year) {
-		// FILL IN -- do not return null
-		return null;
+	    ArrayList<LibraryBookGeneric<Type>> overdueList = new ArrayList<LibraryBookGeneric<Type>>();
+	    GregorianCalendar currentTime = new GregorianCalendar(year, month, day);
+	    for (LibraryBookGeneric<Type> currentBook : library) {
+	        if (currentTime.compareTo(currentBook.getDueDate()) == 1)
+	            overdueList.add(currentBook);
+	            
+	    }
+	    sort(overdueList, new OrderByDueDate());
+		return overdueList;
 	}
 
 	/**
 	 * Returns the list of library books, sorted by title
 	 */
 	public ArrayList<LibraryBookGeneric<Type>> getOrderedByTitle() {
-		// FILL IN -- do not return null
-		// (Optional: Try using a lambda expression here instead of creating a new OrderByTitle class.)
-		return null;
+	    ArrayList<LibraryBookGeneric<Type>> sortedList = new ArrayList<LibraryBookGeneric<Type>>();
+	    sortedList.addAll(library);
+	    OrderByTitle comparator = new OrderByTitle();
+	    sort(sortedList, comparator);
+		return sortedList;
 	}
 
 	/**
